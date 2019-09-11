@@ -11,16 +11,16 @@
 #include "Basic_Types.h"
 #include "L3G4200D_Cfg.h"
 /*Full Scale Configuration*/
-#define u8FS_250    ( (u8) 0x00 )
-#define u8FS_500    ( (u8) 0x20 )
-#define u8FS_2000   ( (u8) 0x30 )
-#define u8FULL_SCALE (u8FS_250)
+#define u8FS_250 0x00
+#define u8FS_500 0x20
+#define u8FS_2000 0x30
+#define u8FULL_SCALE u8FS_250
 
 /*Axis Activation Configuration*/
-#define u8AXIS_INACTIVE ((u8) 0x00)
-#define u8X_AXIS_ACTIVE ((u8) 0x01)
-#define u8Y_AXIS_ACTIVE ((u8) 0x02)
-#define u8Z_AXIS_ACTIVE ((u8) 0x04)
+#define u8AXIS_INACTIVE 0x00
+#define u8X_AXIS_ACTIVE 0x01
+#define u8Y_AXIS_ACTIVE 0x02
+#define u8Z_AXIS_ACTIVE 0x04
 
 /*High Pass and low Pass filters Configurations*/
 #define u8NO_FILTERS   0x00

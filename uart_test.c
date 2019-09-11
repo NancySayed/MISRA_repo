@@ -7,55 +7,51 @@
 
 #include "PWM.h"
 #include "GPT.h"
-
-#define VALUE_10    ( (u8) 10 )
-#define VALUE_0     ( (u8)  0 )
-#define VALUE_25    ( (u8) 25 )
-#define VALUE_4     ( (u8) 4  )
-#define VALUE_5     ( (u8) 5  )
-#define VALUE_1     ( (u8) 1  )
-#define VALUE_20    ( (u8) 20 )
-#define VALUE_100   ( (u8) 100)
-
-void Cyclic30ms(void);
-void main(void);
-void _delay_ms(u8 delay);
-void sei(void);
-
-
-void main(void)
+void Cyclic30ms(void)
 {
-    u16 Count= VALUE_0;
-	u16 start = VALUE_0;
-	u16 Count2 = VALUE_0;
+	static u8 TimeoutCounter = 0;
+	TimeoutCounter ++;
+	if(TimeoutCounter == 10)
+	{
+		BLMGR_BluetoothStateMachine();
+		TimeoutCounter = 0;
+		
+		
+	}
+}
+int main(void)
+{
+	int Count= 0;
+	int start = 0;
+	int Count2 = 0;
  
 
 
-	Cyclic30ms();
+GPT_Timer30msInit(Cyclic30ms);
 	
 	BLMGR_BluetoothInit();
-	BLMGR_SetReceiver( (u8) ROLE_MAPP);
+	BLMGR_SetReceiver(ROLE_MAPP);
     
 							
 	PWM_Init();
 	sei();
-	PWM_SetSpeed(VALUE_25);
+	PWM_SetSpeed(25);
 
 	
 	while(1)
 	{
-		Count2 = (Count2 +VALUE_1) %VALUE_20;
-		BLMGR_SetBattLevel( (u8) Count2 / VALUE_4);
+		Count2 = (Count2 +1) %20;
+		BLMGR_SetBattLevel(Count2 / 4);
 		
-		_delay_ms(VALUE_100);
+		_delay_ms(100);
 		Count ++;
-		if(start == VALUE_0)
+		if(start == 0)
 		{
-					if(Count > VALUE_5)
+					if(Count > 5)
 					{
 						BLMGR_StartDevice();
 
-						start = VALUE_1;
+						start = 1;
 					}
 					
 		}
@@ -67,19 +63,3 @@ void main(void)
 	
 	
 }
-
-
-void Cyclic30ms(void)
-{
-    static u8 TimeoutCounter = VALUE_0;
-    TimeoutCounter ++;
-    if(TimeoutCounter == VALUE_10)
-    {
-        BLMGR_BluetoothStateMachine();
-        TimeoutCounter = VALUE_0;
-
-
-    }
-}
-
-
