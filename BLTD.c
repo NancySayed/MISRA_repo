@@ -8,11 +8,8 @@
 #include "UART_Drv.h"
 #include "BLTD.h"
 
-#define NUM_100    ( (u8) 100 )
-
-
-static u8 BTCommandBuffer[NUM_100];
-static u8 IsRespRecieved = FALSE;
+static u8 BTCommandBuffer[100];
+static u8 IsRespRecieved = 0;
 static u8 RxBuffer[100];
 static void BTCommandSend(u8* Command,u16 CommandLength);
 static  void MemCpy(u8 *Des,const u8 *Src,u16 Length);
@@ -72,23 +69,23 @@ void BLTD_SendMessage(u8* Message,u16 MsgLength)
 /***************************************************************************************************************/
 u8 BLTD_GetRecievedData(u8*Data, u16 Length)
 {
-	u8 RespStatus1;
+	u8 RespStatus;
 	u8 i;
-	if(IsRespRecieved == (u8) TRUE)
+	if(IsRespRecieved == 1)
 	{
-		IsRespRecieved = (u8) FALSE;
-		RespStatus1 = (u8) BLTD_RESP_STATUS_OK;
-		for( i = FALSE; i< (u8) Length ; i++)
+		IsRespRecieved = 0;
+		RespStatus = BLTD_RESP_STATUS_OK;
+		for( i = 0; i< Length ; i++)
 		{
-			*(Data+i) = RxBuffer[i];
+			Data[i] = RxBuffer[i];
 		}
 	}
 	else
 	{
-		RespStatus1 = BLTD_RESP_STATUS_NON;
+		RespStatus = BLTD_RESP_STATUS_NON;
 	}		
 		
-	return RespStatus1;
+	return RespStatus;
 }
 /***************************************************************************************************************/
 void BLTD_StartReceivingData(u8* DataBuffer,u16 BufferLength,CbkPfnType CbkFnPtr)
