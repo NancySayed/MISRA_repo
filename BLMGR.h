@@ -9,15 +9,15 @@
 #ifndef BLMGR_H_
 #define BLMGR_H_
 
-#define SLAVE_COMM ((u8)0x00)
-#define MSTER_COMM ((u8)0x01)
-#define COMM_CINFIG (MSTER_COMM)
+#define SLAVE_COMM 0x00
+#define MSTER_COMM 0x01
+#define COMM_CINFIG MSTER_COMM
 
-#define ROLE_CHAIR ((u8)0x02)
-#define ROLE_CAP   ((u8)0x03)
-#define ROLE_MAPP  ((u8)0x01)
+#define ROLE_CHAIR 0x02
+#define ROLE_CAP  0x03
+#define ROLE_MAPP 0x01
 
-#define DEVICE_ROLE (ROLE_CHAIR)
+#define DEVICE_ROLE ROLE_CHAIR
 void BLMGR_Test(void);
 void BLMGR_BluetoothInit(void);
 void BLMGR_BluetoothStateMachine(void);
