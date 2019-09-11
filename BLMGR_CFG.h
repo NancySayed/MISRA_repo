@@ -13,7 +13,7 @@
 typedef struct  
 {
 	u8 Portname;
-	u8 Portmask;
+	u8 PortMask;
 }BLMGR_DioPinConfig;
 
 #define BLOUETOOTH_ON 0xff
